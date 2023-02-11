@@ -54,8 +54,8 @@
     @yield('content')
 
     {{-- back to top start --}}
-    <div class="back-top" style="right: 0% !important; left: 5% !important;">
-      <a href="#" class="back-to-top">
+    <div class="back-top" >
+      <a href="#" class="back-to-top" style="right: 0% !important; left: 5% !important;">
         <i class="far fa-angle-up"></i>
       </a>
     </div>
