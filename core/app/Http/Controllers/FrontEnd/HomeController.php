@@ -16,6 +16,8 @@ use App\Models\PackageManagement\PackageContent;
 use App\Models\RoomManagement\Room;
 use App\Models\RoomManagement\RoomContent;
 use App\Models\ServiceManagement\ServiceContent;
+use App\Models\GalleryManagement\Gallery;
+use App\Models\GalleryManagement\GalleryCategory;
 use App\Models\Subscriber;
 use App\Traits\MiscellaneousTrait;
 use Illuminate\Http\Request;
@@ -132,6 +134,16 @@ class HomeController extends Controller
       ->where('language_id', $language->id)
       ->orderBy('blog_id', 'desc')
       ->limit(3)
+      ->get();
+
+    $queryResult['categories'] = GalleryCategory::where('language_id', $language->id)
+    ->where('status', 1)
+    ->orderBy('serial_number', 'asc')
+    ->get();
+
+    $queryResult['galleryInfos'] = Gallery::with('galleryCategory')
+      ->where('language_id', $language->id)
+      ->orderBy('serial_number', 'asc')
       ->get();
 
     if ($basicSettings->theme_version == 'theme_one') {
