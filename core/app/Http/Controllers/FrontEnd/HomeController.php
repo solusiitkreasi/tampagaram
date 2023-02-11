@@ -144,6 +144,7 @@ class HomeController extends Controller
     $queryResult['galleryInfos'] = Gallery::with('galleryCategory')
       ->where('language_id', $language->id)
       ->orderBy('serial_number', 'asc')
+      ->limit(9)
       ->get();
 
     if ($basicSettings->theme_version == 'theme_one') {
