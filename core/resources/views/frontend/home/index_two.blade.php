@@ -276,6 +276,54 @@
     <!-- Feature Service Section Start -->
     @endif
 
+    @if ($sections->facilities_section == 1)
+    <!-- Why Choose Us/Facility Section Start -->
+    <section class="wcu-section section-bg section-padding">
+    <div class="container">
+        <div class="row align-items-center">
+        <div class="col-lg-5 offset-lg-1">
+            <!-- Section Title -->
+            <div class="feature-left">
+            <div class="section-title">
+                @if (!is_null($secHeading))
+                <span class="title-top with-border">{{ convertUtf8($secHeading->facility_section_title) }}</span>
+                <h1>{{ convertUtf8($secHeading->facility_section_subtitle) }}</h1>
+                @endif
+            </div>
+
+            @if (count($facilities) > 0)
+                <ul class="feature-list">
+                @foreach ($facilities as $facility)
+                    <li class="wow fadeInUp animated" data-wow-duration="1000ms" data-wow-delay="{{$loop->iteration * 100}}ms">
+                    <div class="feature-icon"><i class="{{ $facility->facility_icon }}"></i></div>
+                    <h4>{{ convertUtf8($facility->facility_title) }}</h4>
+                    <p>{{ $facility->facility_text }}</p>
+                    </li>
+                @endforeach
+                </ul>
+            @endif
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            @if (!is_null($secHeading))
+            <div class="feature-img">
+                <div class="feature-abs-con">
+                <div class="f-inner">
+                    <i class="far fa-stars"></i>
+                    <p>{{ __('Popular Features') }}</p>
+                </div>
+                </div>
+                <img class="lazy" data-src="{{ asset('assets/img/facility_section/' . $secHeading->facility_section_image) }}" alt="image">
+            </div>
+            @endif
+        </div>
+        </div>
+    </div>
+    </section>
+    <!-- Why Choose Us/Facility Section End -->
+    @endif
+
     @if ($sections->featured_rooms_section == 1)
     <!-- Latest Room Section Start -->
     <section class="latest-room section-bg section-padding">
@@ -438,53 +486,6 @@
     <!-- CounterUp End -->
     @endif
 
-    @if ($sections->facilities_section == 1)
-    <!-- Why Choose Us/Facility Section Start -->
-    <section class="wcu-section section-bg section-padding">
-    <div class="container">
-        <div class="row align-items-center">
-        <div class="col-lg-5 offset-lg-1">
-            <!-- Section Title -->
-            <div class="feature-left">
-            <div class="section-title">
-                @if (!is_null($secHeading))
-                <span class="title-top with-border">{{ convertUtf8($secHeading->facility_section_title) }}</span>
-                <h1>{{ convertUtf8($secHeading->facility_section_subtitle) }}</h1>
-                @endif
-            </div>
-
-            @if (count($facilities) > 0)
-                <ul class="feature-list">
-                @foreach ($facilities as $facility)
-                    <li class="wow fadeInUp animated" data-wow-duration="1000ms" data-wow-delay="{{$loop->iteration * 100}}ms">
-                    <div class="feature-icon"><i class="{{ $facility->facility_icon }}"></i></div>
-                    <h4>{{ convertUtf8($facility->facility_title) }}</h4>
-                    <p>{{ $facility->facility_text }}</p>
-                    </li>
-                @endforeach
-                </ul>
-            @endif
-            </div>
-        </div>
-
-        <div class="col-lg-6">
-            @if (!is_null($secHeading))
-            <div class="feature-img">
-                <div class="feature-abs-con">
-                <div class="f-inner">
-                    <i class="far fa-stars"></i>
-                    <p>{{ __('Popular Features') }}</p>
-                </div>
-                </div>
-                <img class="lazy" data-src="{{ asset('assets/img/facility_section/' . $secHeading->facility_section_image) }}" alt="image">
-            </div>
-            @endif
-        </div>
-        </div>
-    </div>
-    </section>
-    <!-- Why Choose Us/Facility Section End -->
-    @endif
 
     @if ($sections->video_section == 1)
     <!-- Call To Action Start -->
