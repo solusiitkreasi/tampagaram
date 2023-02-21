@@ -440,30 +440,30 @@
 
     @if ($sections->video_section == 1)
     <!-- Call To Action Start -->
-    <section class="cta-section bg-img-center lazy {{$websiteInfo->home_version == 'parallax' ? 'parallax' : ''}}" data-bg="{{ asset('assets/img/booking-img.jpg') }}">
-      <div class="container">
+    <section class="cta-section bg-img-center lazy {{$websiteInfo->home_version == 'parallax' ? 'parallax' : ''}}" data-bg="{{ asset('assets/lfm/files/1/Newfoto/IMG-20230221-WA0182.jpg') }}">
+    <div class="container">
         <div class="row align-items-center">
-          <div class="col-md-10">
+        <div class="col-md-10">
             <div class="cta-left-content">
-              @if (!empty($secHeading))
+            @if (!empty($secHeading))
                 <span>{{ convertUtf8($secHeading->booking_section_title) }}</span>
                 <h1>{{ convertUtf8($secHeading->booking_section_subtitle) }}</h1>
                 <a href="{{ $secHeading->booking_section_button_url }}" class="btn filled-btn">
-                  {{ $secHeading->booking_section_button }} <i class="far fa-long-arrow-right"></i>
+                {{ $secHeading->booking_section_button }} <i class="far fa-long-arrow-right"></i>
                 </a>
-              @endif
-            </div>
-          </div>
-
-          <div class="col-md-2">
-            @if (!empty($secHeading))
-              <div class="video-icon text-right">
-                <a href="{{ $secHeading->booking_section_video_url }}" class="video-popup"> <i class="fas fa-play"></i></a>
-              </div>
             @endif
-          </div>
+            </div>
         </div>
-      </div>
+
+        <div class="col-md-2">
+            @if (!empty($secHeading))
+            <div class="video-icon text-right">
+                <a href="{{ $secHeading->booking_section_video_url }}" class="video-popup"> <i class="fas fa-play"></i></a>
+            </div>
+            @endif
+        </div>
+        </div>
+    </div>
     </section>
     <!-- Call To Action End -->
     @endif
