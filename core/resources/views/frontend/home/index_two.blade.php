@@ -222,71 +222,6 @@
         @endif
     </section>
 
-    <!-- Gallery Start -->
-    <section class="gallery-wrap section-padding">
-      <div class="container">
-        <div class="section-title text-center">
-            <div class="row justify-content-center">
-                <div class="col-lg-7">
-                    <span class="title-top">Gallery</span>
-                    <h1>Album</h1>
-                </div>
-            </div>
-        </div>
-        <!-- if category is null then no gallery is available -->
-        @if (count($categories) == 0 || count($galleryInfos) == 0)
-          <div class="row text-center">
-            <div class="col">
-              <h3>{{ __('No Gallery Found!') }}</h3>
-            </div>
-          </div>
-        @else
-          <div class="gallery-filter text-center">
-            <ul class="list-inline">
-              <li class="active" data-filter="*">{{ __('Show All') }}</li>
-              @foreach ($categories as $category)
-                @php
-                  $filterValue = '.' . strtolower($category->name);
-
-                  if (str_contains($filterValue, ' ')) {
-                    $filterValue = str_replace(' ', '-', $filterValue);
-                  }
-                @endphp
-
-                <li data-filter="{{ $filterValue }}">{{ convertUtf8($category->name) }}</li>
-              @endforeach
-            </ul>
-          </div>
-
-          <div class="gallery-items">
-            <div class="row gallery-filter-items">
-              @foreach ($galleryInfos as $galleryInfo)
-                <!-- Single Item -->
-                @php
-                  $galleryCategory = $galleryInfo->galleryCategory()->first();
-                  $categoryName = strtolower($galleryCategory->name);
-
-                  if (str_contains($categoryName, ' ')) {
-                    $categoryName = str_replace(' ', '-', $categoryName);
-                  }
-                @endphp
-
-                <div class="col-lg-4 col-md-6 col-sm-6 {{ $categoryName }}">
-                  <a class="gallery-item lazy bg-light d-block" href="{{ asset('assets/img/gallery/' . $galleryInfo->gallery_img) }}" data-bg="{{ asset('assets/img/gallery/' . $galleryInfo->gallery_img) }}">
-                    <div class="gallery-content">
-                      <h3>{{ convertUtf8($galleryInfo->title) }}</h3>
-                    </div>
-                  </a>
-                </div>
-              @endforeach
-            </div>
-          </div>
-        @endif
-      </div>
-    </section>
-    <!-- Gallery End -->
-
-
     @if ($sections->featured_services_section == 1)
     <!-- Feature Service Section Start -->
     <section class="feature-section section-padding">
@@ -371,9 +306,9 @@
                       <div class="single-room">
                         <a class="room-thumb d-block" href="{{route('room_details', [$roomInfo->room_id, $roomInfo->slug])}}">
                           <img class="lazy" data-src="{{ asset('assets/img/rooms/' . $roomInfo->room->featured_img) }}" alt="">
-                          <div class="room-price">
-                            <p>{{ $currencyInfo->base_currency_symbol_position == 'left' ? $currencyInfo->base_currency_symbol : '' }} {{ $roomInfo->room->rent }} {{ $currencyInfo->base_currency_symbol_position == 'right' ? $currencyInfo->base_currency_symbol : '' }} / {{__('Night')}}</p>
-                          </div>
+                            <!-- <div class="room-price">
+                                <p>{{ $currencyInfo->base_currency_symbol_position == 'left' ? $currencyInfo->base_currency_symbol : '' }} {{ $roomInfo->room->rent }} {{ $currencyInfo->base_currency_symbol_position == 'right' ? $currencyInfo->base_currency_symbol : '' }} / {{__('Night')}}</p>
+                            </div> -->
                         </a>
                         <div class="room-desc">
                             @if ($websiteInfo->room_category_status == 1)
@@ -384,7 +319,7 @@
                           <h4>
                             <a href="{{ route('room_details', ['id' => $roomInfo->room_id, 'slug' => $roomInfo->slug]) }}">{{ convertUtf8($roomInfo->title) }}</a>
                           </h4>
-                          <p>{{ $roomInfo->summary }}</p>
+                          <!-- <p>{{ $roomInfo->summary }}</p> -->
                           <ul class="room-info">
                             <li><i class="far fa-bed"></i>{{ $roomInfo->room->bed }} {{$roomInfo->room->bed == 1 ? __('Bed') : __('Beds')}}</li>
                             <li><i class="far fa-bath"></i>{{ $roomInfo->room->bath }} {{$roomInfo->room->bath == 1 ? __('Bath') : __('Baths')}}</li>
@@ -468,8 +403,6 @@
     </section>
     <!-- Package Section End -->
     @endif
-
-
 
 
     @if ($sections->statistics_section == 1)
@@ -582,6 +515,71 @@
     </section>
     <!-- Why Choose Us/Facility Section End -->
     @endif
+
+    <!-- Gallery Start -->
+    <section class="gallery-wrap section-padding">
+        <div class="container">
+            <div class="section-title text-center">
+                <div class="row justify-content-center">
+                    <div class="col-lg-7">
+                        <span class="title-top">Gallery</span>
+                        <h1>{{ $websiteInfo->website_title }}</h1>
+                    </div>
+                </div>
+            </div>
+            <!-- if category is null then no gallery is available -->
+            @if (count($categories) == 0 || count($galleryInfos) == 0)
+            <div class="row text-center">
+                <div class="col">
+                <h3>{{ __('No Gallery Found!') }}</h3>
+                </div>
+            </div>
+            @else
+            <div class="gallery-filter text-center">
+                <ul class="list-inline">
+                <li class="active" data-filter="*">{{ __('Show All') }}</li>
+                @foreach ($categories as $category)
+                    @php
+                    $filterValue = '.' . strtolower($category->name);
+
+                    if (str_contains($filterValue, ' ')) {
+                        $filterValue = str_replace(' ', '-', $filterValue);
+                    }
+                    @endphp
+
+                    <li data-filter="{{ $filterValue }}">{{ convertUtf8($category->name) }}</li>
+                @endforeach
+                </ul>
+            </div>
+
+            <div class="gallery-items">
+                <div class="row gallery-filter-items">
+                @foreach ($galleryInfos as $galleryInfo)
+                    <!-- Single Item -->
+                    @php
+                    $galleryCategory = $galleryInfo->galleryCategory()->first();
+                    $categoryName = strtolower($galleryCategory->name);
+
+                    if (str_contains($categoryName, ' ')) {
+                        $categoryName = str_replace(' ', '-', $categoryName);
+                    }
+                    @endphp
+
+                    <div class="col-lg-4 col-md-6 col-sm-6 {{ $categoryName }}">
+                    <a class="gallery-item lazy bg-light d-block" href="{{ asset('assets/img/gallery/' . $galleryInfo->gallery_img) }}" data-bg="{{ asset('assets/img/gallery/' . $galleryInfo->gallery_img) }}">
+                        <div class="gallery-content">
+                        <h3>{{ convertUtf8($galleryInfo->title) }}</h3>
+                        </div>
+                    </a>
+                    </div>
+                @endforeach
+                </div>
+            </div>
+            @endif
+        </div>
+    </section>
+    <!-- Gallery End -->
+
 
     @if ($sections->testimonials_section == 1)
     <!-- Feedback/Testimonial Section Start -->
