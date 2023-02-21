@@ -124,6 +124,37 @@
     @endif
 
     <section class="feature-section-two">
+        @if ($sections->intro_section == 1)
+        <!-- Intro Section Start -->
+        <div class="featured-slider position-relative section-padding">
+          <div class="container-fluid">
+            <div class="row no-gutters">
+              <div class="col-xl-10">
+                <div class="feature-slide-wrap" id="featureSlideActive">
+                  <div class="single-feature-slide">
+                    @if (!empty($intro))
+                      <img class="lazy f-big-image" data-src="{{ asset('assets/img/intro_section/' . $intro->intro_img) }}" alt="Image">
+                    @endif
+
+                    <div class="row no-gutters justify-content-end">
+                      <div class="col-xl-5 col-lg-8 col-md-8">
+                        <div class="f-desc">
+                          <h1>{{ !empty($intro->intro_secondary_title) ? $intro->intro_secondary_title : '' }}</h1>
+                          <p>{{ !empty($intro->intro_text) ? $intro->intro_text : '' }}</p>
+                          <div class="line"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Intro Section End -->
+        @endif
+
         @if ($sections->faq_section == 1)
         <!-- Why Choose US/FAQ Start -->
         <div class="wcu-section">
@@ -189,37 +220,6 @@
         </div>
         <!-- Why Choose US/FAQ End -->
         @endif
-
-        @if ($sections->intro_section == 1)
-        <!-- Intro Section Start -->
-        <div class="featured-slider position-relative section-padding">
-          <div class="container-fluid">
-            <div class="row no-gutters">
-              <div class="col-xl-10">
-                <div class="feature-slide-wrap" id="featureSlideActive">
-                  <div class="single-feature-slide">
-                    @if (!empty($intro))
-                      <img class="lazy f-big-image" data-src="{{ asset('assets/img/intro_section/' . $intro->intro_img) }}" alt="Image">
-                    @endif
-
-                    <div class="row no-gutters justify-content-end">
-                      <div class="col-xl-5 col-lg-8 col-md-8">
-                        <div class="f-desc">
-                          <h1>{{ !empty($intro->intro_secondary_title) ? $intro->intro_secondary_title : '' }}</h1>
-                          <p>{{ !empty($intro->intro_text) ? $intro->intro_text : '' }}</p>
-                          <div class="line"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Intro Section End -->
-        @endif
     </section>
 
 
@@ -279,59 +279,64 @@
 
     @if ($sections->featured_rooms_section == 1)
     <!-- Latest Room Section Start -->
-    <section class="latest-room section-padding">
-      <div class="container">
-        <!-- Section Title -->
-        <div class="section-title text-center">
-          @if (!empty($secHeading))
-            <div class="row justify-content-center">
-                <div class="col-lg-7">
-                    <span class="title-top">{{ $secHeading->room_section_title }}</span>
-                    <h1>{{ $secHeading->room_section_subtitle }}</h1>
-                </div>
-            </div>
-          @endif
-        </div>
-
-        <!-- Single Room Box -->
-        @if (count($roomInfos) == 0 || $roomFlag == 0)
-          <div class="row text-center">
-            <div class="col">
-              <h3>{{ __('No Featured Room Found!') }}</h3>
-            </div>
-          </div>
-        @else
-          <div class="row">
-            @foreach ($roomInfos as $roomInfo)
-              @if (!empty($roomInfo->room))
-                <div class="col-lg-4 col-md-6">
-                  <div class="room-box text-center">
-                    <div class="room-img">
-                      <img class="lazy" data-src="{{ asset('assets/img/rooms/' . $roomInfo->room->featured_img) }}" alt="room">
-                    </div>
-                    <div class="room-content">
-                      <i class="far fa-stars"></i>
-                      <h5>
-                        <a href="{{ route('room_details', ['id' => $roomInfo->room_id, 'slug' => $roomInfo->slug]) }}">{{ strlen($roomInfo->title) > 25 ? mb_substr($roomInfo->title, 0, 25, 'utf-8') . '....' : $roomInfo->title }}</a>
-                      </h5>
-                      <p class="price">{{ $currencyInfo->base_currency_symbol_position == 'left' ? $currencyInfo->base_currency_symbol : '' }} {{ $roomInfo->room->rent }} {{ $currencyInfo->base_currency_symbol_position == 'right' ? $currencyInfo->base_currency_symbol : '' }}</p>
-                    </div>
-                  </div>
-                </div>
+    <section class="latest-room section-bg section-padding">
+      <div class="container-fluid">
+        <div class="row align-items-center no-gutters">
+          <div class="col-lg-3">
+            <!-- Section Title -->
+            <div class="section-title">
+              @if (!is_null($secHeading))
+                <span class="title-top with-border">{{ convertUtf8($secHeading->room_section_title) }}</span>
+                <h1>{{ convertUtf8($secHeading->room_section_subtitle) }}</h1>
+                <p>{{ $secHeading->room_section_text }}</p>
               @endif
-            @endforeach
+              <!-- Page Info -->
+              <div class="page-Info"></div>
+              <!-- Room Arrow -->
+              <div class="room-arrows"></div>
+            </div>
           </div>
-        @endif
-      </div>
 
-      <!-- Design Shape -->
-      <div class="shape-one">
-        <img class="lazy" data-src="{{ asset('assets/img/shape/08.png') }}" alt="shape">
+          <div class="col-lg-8 offset-lg-1">
+            @if (count($roomInfos) == 0 || $roomFlag == 0)
+              <h3 class="text-center text-white">{{ __('No Featured Room Found!') }}</h3>
+            @else
+              <div class="latest-room-slider" id="roomSliderActive">
+                @foreach ($roomInfos as $roomInfo)
+                  @if (!is_null($roomInfo->room))
+                      <div class="single-room">
+                        <a class="room-thumb d-block" href="{{route('room_details', [$roomInfo->room_id, $roomInfo->slug])}}">
+                          <img class="lazy" data-src="{{ asset('assets/img/rooms/' . $roomInfo->room->featured_img) }}" alt="">
+                          <div class="room-price">
+                            <p>{{ $currencyInfo->base_currency_symbol_position == 'left' ? $currencyInfo->base_currency_symbol : '' }} {{ $roomInfo->room->rent }} {{ $currencyInfo->base_currency_symbol_position == 'right' ? $currencyInfo->base_currency_symbol : '' }} / {{__('Night')}}</p>
+                          </div>
+                        </a>
+                        <div class="room-desc">
+                            @if ($websiteInfo->room_category_status == 1)
+                            <div class="room-cat">
+                              <a class="d-block p-0" href="{{route('rooms', ['category' => $roomInfo->roomCategory->id])}}">{{ $roomInfo->roomCategory->name }}</a>
+                            </div>
+                            @endif
+                          <h4>
+                            <a href="{{ route('room_details', ['id' => $roomInfo->room_id, 'slug' => $roomInfo->slug]) }}">{{ convertUtf8($roomInfo->title) }}</a>
+                          </h4>
+                          <p>{{ $roomInfo->summary }}</p>
+                          <ul class="room-info">
+                            <li><i class="far fa-bed"></i>{{ $roomInfo->room->bed }} {{$roomInfo->room->bed == 1 ? __('Bed') : __('Beds')}}</li>
+                            <li><i class="far fa-bath"></i>{{ $roomInfo->room->bath }} {{$roomInfo->room->bath == 1 ? __('Bath') : __('Baths')}}</li>
+                            @if (!empty($roomInfo->room->max_guests))
+                            <li><i class="far fa-users"></i>{{ $roomInfo->room->max_guests }} {{$roomInfo->room->max_guests == 1 ? __('Guest') : __('Guests')}}</li>
+                            @endif
+                          </ul>
+                        </div>
+                      </div>
+                  @endif
+                @endforeach
+              </div>
+            @endif
+          </div>
+        </div>
       </div>
-      <div class="shape-two">
-        <img class="lazy" data-src="{{ asset('assets/img/shape/03.png') }}" alt="shape">
-      </div>
-      <div class="shape-three"></div>
     </section>
     <!-- Latest Room Section End -->
     @endif
