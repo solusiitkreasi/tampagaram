@@ -225,6 +225,14 @@
     <!-- Gallery Start -->
     <section class="gallery-wrap section-padding">
       <div class="container">
+        <div class="section-title text-center">
+            <div class="row justify-content-center">
+                <div class="col-lg-7">
+                    <span class="title-top">Gallery</span>
+                    <h1>Album</h1>
+                </div>
+            </div>
+        </div>
         <!-- if category is null then no gallery is available -->
         @if (count($categories) == 0 || count($galleryInfos) == 0)
           <div class="row text-center">
