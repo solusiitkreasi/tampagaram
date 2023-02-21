@@ -123,6 +123,105 @@
     <!-- Booking Search Form End -->
     @endif
 
+    <section class="feature-section-two">
+        @if ($sections->faq_section == 1)
+        <!-- Why Choose US/FAQ Start -->
+        <div class="wcu-section">
+          <div class="container">
+            <div class="row align-items-center">
+              <div class="col-lg-6">
+                <!-- Section Title -->
+                <div class="section-title">
+                  @if (!empty($secHeading))
+                    <span class="title-top">{{ convertUtf8($secHeading->faq_section_title) }}</span>
+                    <h1>{{ convertUtf8($secHeading->faq_section_subtitle) }}</h1>
+                  @endif
+                </div>
+
+                @if (count($faqs) > 0)
+                  <div class="feature-accordion accordion" id="faqAccordion">
+                    @foreach ($faqs as $faq)
+                      <div class="card">
+                        <div class="card-header ">
+                          <button
+                            type="button"
+                            class="{{ $loop->first ? 'active-accordion' : '' }}"
+                            data-toggle="collapse"
+                            data-target="{{ '#faq' . $faq->id }}"
+                          >
+                            {{ $faq->question }}
+                            <span class="open-icon"><i class="far fa-eye-slash"></i></span>
+                            <span class="close-icon"><i class="far fa-eye"></i></span>
+                          </button>
+                        </div>
+
+                        <div
+                          id="{{ 'faq' . $faq->id }}"
+                          class="collapse {{ $loop->first ? 'show' : '' }}"
+                          data-parent="#faqAccordion"
+                        >
+                          <div class="card-body">{{ $faq->answer }}</div>
+                        </div>
+                      </div>
+                    @endforeach
+                  </div>
+                @endif
+              </div>
+
+              <div class="col-lg-6">
+                <div class="feature-accordion-img text-right">
+                  @if (!empty($secHeading->faq_section_image))
+                    <img class="lazy" data-src="{{ asset('assets/img/faq_section/' . $secHeading->faq_section_image) }}" alt="image">
+                  @endif
+
+                  <div class="degin-shape">
+                    <div class="shape-one">
+                      <img class="lazy" data-src="{{ asset('assets/img/shape/11.png') }}" alt="shape">
+                    </div>
+                    <div class="shape-two">
+                      <img class="lazy" data-src="{{ asset('assets/img/shape/12.png') }}" alt="shape">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Why Choose US/FAQ End -->
+        @endif
+
+        @if ($sections->intro_section == 1)
+        <!-- Intro Section Start -->
+        <div class="featured-slider position-relative section-padding">
+          <div class="container-fluid">
+            <div class="row no-gutters">
+              <div class="col-xl-10">
+                <div class="feature-slide-wrap" id="featureSlideActive">
+                  <div class="single-feature-slide">
+                    @if (!empty($intro))
+                      <img class="lazy f-big-image" data-src="{{ asset('assets/img/intro_section/' . $intro->intro_img) }}" alt="Image">
+                    @endif
+
+                    <div class="row no-gutters justify-content-end">
+                      <div class="col-xl-5 col-lg-8 col-md-8">
+                        <div class="f-desc">
+                          <h1>{{ !empty($intro->intro_secondary_title) ? $intro->intro_secondary_title : '' }}</h1>
+                          <p>{{ !empty($intro->intro_text) ? $intro->intro_text : '' }}</p>
+                          <div class="line"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Intro Section End -->
+        @endif
+    </section>
+
 
     @if ($sections->featured_services_section == 1)
     <!-- Feature Service Section Start -->
@@ -302,104 +401,7 @@
     @endif
 
 
-    <section class="feature-section-two">
-        @if ($sections->faq_section == 1)
-        <!-- Why Choose US/FAQ Start -->
-        <div class="wcu-section">
-          <div class="container">
-            <div class="row align-items-center">
-              <div class="col-lg-6">
-                <!-- Section Title -->
-                <div class="section-title">
-                  @if (!empty($secHeading))
-                    <span class="title-top">{{ convertUtf8($secHeading->faq_section_title) }}</span>
-                    <h1>{{ convertUtf8($secHeading->faq_section_subtitle) }}</h1>
-                  @endif
-                </div>
 
-                @if (count($faqs) > 0)
-                  <div class="feature-accordion accordion" id="faqAccordion">
-                    @foreach ($faqs as $faq)
-                      <div class="card">
-                        <div class="card-header ">
-                          <button
-                            type="button"
-                            class="{{ $loop->first ? 'active-accordion' : '' }}"
-                            data-toggle="collapse"
-                            data-target="{{ '#faq' . $faq->id }}"
-                          >
-                            {{ $faq->question }}
-                            <span class="open-icon"><i class="far fa-eye-slash"></i></span>
-                            <span class="close-icon"><i class="far fa-eye"></i></span>
-                          </button>
-                        </div>
-
-                        <div
-                          id="{{ 'faq' . $faq->id }}"
-                          class="collapse {{ $loop->first ? 'show' : '' }}"
-                          data-parent="#faqAccordion"
-                        >
-                          <div class="card-body">{{ $faq->answer }}</div>
-                        </div>
-                      </div>
-                    @endforeach
-                  </div>
-                @endif
-              </div>
-
-              <div class="col-lg-6">
-                <div class="feature-accordion-img text-right">
-                  @if (!empty($secHeading->faq_section_image))
-                    <img class="lazy" data-src="{{ asset('assets/img/faq_section/' . $secHeading->faq_section_image) }}" alt="image">
-                  @endif
-
-                  <div class="degin-shape">
-                    <div class="shape-one">
-                      <img class="lazy" data-src="{{ asset('assets/img/shape/11.png') }}" alt="shape">
-                    </div>
-                    <div class="shape-two">
-                      <img class="lazy" data-src="{{ asset('assets/img/shape/12.png') }}" alt="shape">
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Why Choose US/FAQ End -->
-        @endif
-
-        @if ($sections->intro_section == 1)
-        <!-- Intro Section Start -->
-        <div class="featured-slider position-relative section-padding">
-          <div class="container-fluid">
-            <div class="row no-gutters">
-              <div class="col-xl-10">
-                <div class="feature-slide-wrap" id="featureSlideActive">
-                  <div class="single-feature-slide">
-                    @if (!empty($intro))
-                      <img class="lazy f-big-image" data-src="{{ asset('assets/img/intro_section/' . $intro->intro_img) }}" alt="Image">
-                    @endif
-
-                    <div class="row no-gutters justify-content-end">
-                      <div class="col-xl-5 col-lg-8 col-md-8">
-                        <div class="f-desc">
-                          <h1>{{ !empty($intro->intro_secondary_title) ? $intro->intro_secondary_title : '' }}</h1>
-                          <p>{{ !empty($intro->intro_text) ? $intro->intro_text : '' }}</p>
-                          <div class="line"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Intro Section End -->
-        @endif
-    </section>
 
     @if ($sections->statistics_section == 1)
     <!-- CounterUp Start -->
