@@ -222,6 +222,62 @@
         @endif
     </section>
 
+    <!-- Gallery Start -->
+    <section class="gallery-wrap section-padding">
+      <div class="container">
+        <!-- if category is null then no gallery is available -->
+        @if (count($categories) == 0 || count($galleryInfos) == 0)
+          <div class="row text-center">
+            <div class="col">
+              <h3>{{ __('No Gallery Found!') }}</h3>
+            </div>
+          </div>
+        @else
+          <div class="gallery-filter text-center">
+            <ul class="list-inline">
+              <li class="active" data-filter="*">{{ __('Show All') }}</li>
+              @foreach ($categories as $category)
+                @php
+                  $filterValue = '.' . strtolower($category->name);
+
+                  if (str_contains($filterValue, ' ')) {
+                    $filterValue = str_replace(' ', '-', $filterValue);
+                  }
+                @endphp
+
+                <li data-filter="{{ $filterValue }}">{{ convertUtf8($category->name) }}</li>
+              @endforeach
+            </ul>
+          </div>
+
+          <div class="gallery-items">
+            <div class="row gallery-filter-items">
+              @foreach ($galleryInfos as $galleryInfo)
+                <!-- Single Item -->
+                @php
+                  $galleryCategory = $galleryInfo->galleryCategory()->first();
+                  $categoryName = strtolower($galleryCategory->name);
+
+                  if (str_contains($categoryName, ' ')) {
+                    $categoryName = str_replace(' ', '-', $categoryName);
+                  }
+                @endphp
+
+                <div class="col-lg-4 col-md-6 col-sm-6 {{ $categoryName }}">
+                  <a class="gallery-item lazy bg-light d-block" href="{{ asset('assets/img/gallery/' . $galleryInfo->gallery_img) }}" data-bg="{{ asset('assets/img/gallery/' . $galleryInfo->gallery_img) }}">
+                    <div class="gallery-content">
+                      <h3>{{ convertUtf8($galleryInfo->title) }}</h3>
+                    </div>
+                  </a>
+                </div>
+              @endforeach
+            </div>
+          </div>
+        @endif
+      </div>
+    </section>
+    <!-- Gallery End -->
+
 
     @if ($sections->featured_services_section == 1)
     <!-- Feature Service Section Start -->
@@ -469,6 +525,54 @@
       </div>
     </section>
     <!-- Call To Action End -->
+    @endif
+
+    @if ($sections->facilities_section == 1)
+    <!-- Why Choose Us/Facility Section Start -->
+    <section class="wcu-section section-bg section-padding">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-5 offset-lg-1">
+            <!-- Section Title -->
+            <div class="feature-left">
+              <div class="section-title">
+                @if (!is_null($secHeading))
+                  <span class="title-top with-border">{{ convertUtf8($secHeading->facility_section_title) }}</span>
+                  <h1>{{ convertUtf8($secHeading->facility_section_subtitle) }}</h1>
+                @endif
+              </div>
+
+              @if (count($facilities) > 0)
+                <ul class="feature-list">
+                  @foreach ($facilities as $facility)
+                    <li class="wow fadeInUp animated" data-wow-duration="1000ms" data-wow-delay="{{$loop->iteration * 100}}ms">
+                      <div class="feature-icon"><i class="{{ $facility->facility_icon }}"></i></div>
+                      <h4>{{ convertUtf8($facility->facility_title) }}</h4>
+                      <p>{{ $facility->facility_text }}</p>
+                    </li>
+                  @endforeach
+                </ul>
+              @endif
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            @if (!is_null($secHeading))
+              <div class="feature-img">
+                <div class="feature-abs-con">
+                  <div class="f-inner">
+                    <i class="far fa-stars"></i>
+                    <p>{{ __('Popular Features') }}</p>
+                  </div>
+                </div>
+                <img class="lazy" data-src="{{ asset('assets/img/facility_section/' . $secHeading->facility_section_image) }}" alt="image">
+              </div>
+            @endif
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Why Choose Us/Facility Section End -->
     @endif
 
     @if ($sections->testimonials_section == 1)
