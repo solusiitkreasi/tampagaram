@@ -143,7 +143,7 @@ class HomeController extends Controller
 
     $queryResult['galleryInfos'] = Gallery::with('galleryCategory')
       ->where('language_id', $language->id)
-      ->orderBy('serial_number', 'asc')
+      ->orderBy('created_at', 'desc')
       ->limit(9)
       ->get();
 
