@@ -523,7 +523,7 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-7">
                         <span class="title-top">Gallery</span>
-                        <h1>{{ $websiteInfo->website_title }}</h1>
+                        <h3>{{ $websiteInfo->website_title }}</h3>
                     </div>
                 </div>
             </div>
@@ -535,7 +535,7 @@
                 </div>
             </div>
             @else
-            <div class="gallery-filter text-center">
+            <!-- <div class="gallery-filter text-center">
                 <ul class="list-inline">
                 <li class="active" data-filter="*">{{ __('Show All') }}</li>
                 @foreach ($categories as $category)
@@ -550,7 +550,7 @@
                     <li data-filter="{{ $filterValue }}">{{ convertUtf8($category->name) }}</li>
                 @endforeach
                 </ul>
-            </div>
+            </div> -->
 
             <div class="gallery-items">
                 <div class="row gallery-filter-items">
@@ -568,7 +568,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-6 {{ $categoryName }}">
                     <a class="gallery-item lazy bg-light d-block" href="{{ asset('assets/img/gallery/' . $galleryInfo->gallery_img) }}" data-bg="{{ asset('assets/img/gallery/' . $galleryInfo->gallery_img) }}">
                         <div class="gallery-content">
-                        <h3>{{ convertUtf8($galleryInfo->title) }}</h3>
+                        <!-- <h3>{{ convertUtf8($galleryInfo->title) }}</h3> -->
                         </div>
                     </a>
                     </div>
